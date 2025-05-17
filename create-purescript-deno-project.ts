@@ -1,5 +1,5 @@
-import { parseArgs } from 'jsr:@std/cli/parse-args';
-import * as path from 'jsr:@std/path';
+import { parseArgs } from 'jsr:@std/cli@1.0.17/parse-args';
+import * as path from 'jsr:@std/path@1.0.9';
 
 const scriptDir = path.dirname(path.fromFileUrl(import.meta.url));
 const templateDir = path.join(scriptDir, 'template');
