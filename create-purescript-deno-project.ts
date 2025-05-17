@@ -1,8 +1,6 @@
 import { parseArgs } from 'jsr:@std/cli@1.0.17/parse-args';
 import * as path from 'jsr:@std/path@1.0.9';
 
-const scriptDir = path.dirname(path.fromFileUrl(import.meta.url));
-const templateDir = path.join(scriptDir, 'template');
 const templateFiles = [
   'src/Main.purs',
   'src/Main.ts.template',
@@ -12,7 +10,7 @@ const templateFiles = [
   'serve.ts.template',
   'spago.yaml',
   'tsconfig.json',
-]
+];
 
 function exitWithError(message: string) {
   console.error(message);
@@ -47,17 +45,46 @@ async function validateTargetDirectory(targetDirectory: string): Promise<void> {
 
 }
 
-async function copyTemplateFiles(targetDirectory: string): Promise<void> {
-  await Promise.all(templateFiles.map(async (filePath) => {
-
+function destinationPath(filePath: string): string {
     // To avoid the Deno compilation treating .ts files as modules to include,
     // we save them with a .template suffix and remove it after copying.
-    const destFilePath = filePath.endsWith('.template')
-      ? filePath.slice(0, -'.template'.length)
-      : filePath;
+  return filePath.endsWith('.template')
+    ? filePath.slice(0, -'.template'.length)
+    : filePath;
+}
+
+async function downloadTemplateFiles(targetDirectory: string): Promise<void> {
+
+  const url = new URL(import.meta.url);
+  const rootPath = url.pathname.split('/').slice(0, -1).join('/');
+  url.pathname = rootPath + '/template';
+
+  await Promise.all(templateFiles.map(async (filePath) => {
+    const srcURL = new URL(url);
+    srcURL.pathname += '/' + filePath;
+
+    const destPath = path.join(targetDirectory, destinationPath(filePath));
+    const destDir = path.dirname(destPath);
+
+    await Deno.mkdir(destDir, { recursive: true });
+
+    const resp = await fetch(srcURL);
+    if (!resp.ok) {
+      exitWithError(`Failed to download ${srcURL}: ${resp.status} ${resp.statusText}`);
+    }
+
+    await Deno.writeTextFile(destPath, await resp.text());
+  }));
+}
+
+async function copyTemplateFiles(targetDirectory: string): Promise<void> {
+
+  const templateDir = path.join(path.dirname(new URL(import.meta.url).pathname), 'template');
+
+  await Promise.all(templateFiles.map(async (filePath) => {
 
     const srcPath = path.join(templateDir, filePath);
-    const destPath = path.join(targetDirectory, destFilePath);
+    const destPath = path.join(targetDirectory, destinationPath(filePath));
     const destDir = path.dirname(destPath);
 
     await Deno.mkdir(destDir, { recursive: true });
@@ -73,7 +100,12 @@ export async function createPurescriptDenoProject(targetDirectory: string): Prom
 
   await validateTargetDirectory(targetDirectory);
 
-  await copyTemplateFiles(targetDirectory);
+  if (import.meta.url.startsWith('file://')) {
+    await copyTemplateFiles(targetDirectory);
+  }
+  else {
+    await downloadTemplateFiles(targetDirectory);
+  }
 }
 
 if (import.meta.main) {

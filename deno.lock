@@ -2,7 +2,9 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/cli@*": "1.0.17",
-    "jsr:@std/path@*": "1.0.9"
+    "jsr:@std/cli@1.0.17": "1.0.17",
+    "jsr:@std/path@*": "1.0.9",
+    "jsr:@std/path@1.0.9": "1.0.9"
   },
   "jsr": {
     "@std/cli@1.0.17": {
