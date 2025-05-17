@@ -65,7 +65,7 @@ async function copyTemplateFiles(targetDirectory: string): Promise<void> {
   }));
 }
 
-async function createPurescriptDenoProject(targetDirectory: string): Promise<void> {
+export async function createPurescriptDenoProject(targetDirectory: string): Promise<void> {
 
   if (!path.isAbsolute(targetDirectory)) {
     targetDirectory = path.resolve(Deno.cwd(), targetDirectory);
