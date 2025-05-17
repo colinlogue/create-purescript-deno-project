@@ -1,5 +1,5 @@
 {
-  "name": "create-purescript-deno-project",
+  "name": "@colinlogue/create-purescript-deno-project",
   "version": "0.0.1",
   "description": "A template for creating a PureScript project with a Deno backend.",
   "tasks": {
