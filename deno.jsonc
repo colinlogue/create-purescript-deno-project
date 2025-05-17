@@ -7,4 +7,11 @@
   },
   "exports": "./create-purescript-deno-project.ts",
   "license": "MIT",
+  "publish": {
+    "include": [
+      "create-purescript-deno-project.ts",
+      "template",
+      "deno.lock"
+    ]
+  }
 }

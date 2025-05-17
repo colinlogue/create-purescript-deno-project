@@ -5,7 +5,7 @@ const templateFiles = [
   'src/Main.purs',
   'src/Main.ts.template',
   'test/Test/Main.purs',
-  '.gitignore',
+  '.gitignore.template',
   'package.json',
   'serve.ts.template',
   'spago.yaml',
@@ -46,8 +46,11 @@ async function validateTargetDirectory(targetDirectory: string): Promise<void> {
 }
 
 function destinationPath(filePath: string): string {
-    // To avoid the Deno compilation treating .ts files as modules to include,
-    // we save them with a .template suffix and remove it after copying.
+
+  // To avoid the Deno compilation treating .ts files as modules to include,
+  // we save them with a .template suffix and remove it when copying.
+  // .gitignore files are also copied as .template files because they would
+  // otherwise be ignored when publishing to JSR.
   return filePath.endsWith('.template')
     ? filePath.slice(0, -'.template'.length)
     : filePath;
