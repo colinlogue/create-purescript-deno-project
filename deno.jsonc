@@ -2,7 +2,7 @@
   "name": "create-purescript-deno-project",
   "version": "0.0.1",
   "description": "A template for creating a PureScript project with a Deno backend.",
-  "scripts": {
+  "tasks": {
     "compile": "deno compile --no-check --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts"
   }
 }
