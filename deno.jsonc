@@ -1,6 +1,6 @@
 {
   "name": "@colinlogue/create-purescript-deno-project",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A template for creating a PureScript project with a Deno backend.",
   "tasks": {
     "compile": "deno compile --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts"
