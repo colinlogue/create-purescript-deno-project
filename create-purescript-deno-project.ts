@@ -5,11 +5,11 @@ const scriptDir = path.dirname(path.fromFileUrl(import.meta.url));
 const templateDir = path.join(scriptDir, 'template');
 const templateFiles = [
   'src/Main.purs',
-  'src/Main.ts',
+  'src/Main.ts.template',
   'test/Test/Main.purs',
   '.gitignore',
   'package.json',
-  'serve.ts',
+  'serve.ts.template',
   'spago.yaml',
   'tsconfig.json',
 ]
@@ -49,8 +49,15 @@ async function validateTargetDirectory(targetDirectory: string): Promise<void> {
 
 async function copyTemplateFiles(targetDirectory: string): Promise<void> {
   await Promise.all(templateFiles.map(async (filePath) => {
+
+    // To avoid the Deno compilation treating .ts files as modules to include,
+    // we save them with a .template suffix and remove it after copying.
+    const destFilePath = filePath.endsWith('.template')
+      ? filePath.slice(0, -'.template'.length)
+      : filePath;
+
     const srcPath = path.join(templateDir, filePath);
-    const destPath = path.join(targetDirectory, filePath);
+    const destPath = path.join(targetDirectory, destFilePath);
     const destDir = path.dirname(destPath);
 
     await Deno.mkdir(destDir, { recursive: true });
