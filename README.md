@@ -8,7 +8,7 @@ The script takes a single argument, a directory to initialize the project in. If
 
 To create a project in directory `my-project`:
 ```
-deno run --allow-all https://jsr.io/@colinlogue/create-purescript-deno-project/0.1.4/create-purescript-deno-project.ts my-project
+deno run --allow-all jsr:@colinlogue/create-purescript-deno-project my-project
 ```
 
 If the directory already exists, it must be empty.
