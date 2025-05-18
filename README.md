@@ -15,6 +15,10 @@ If the directory already exists, it must be empty.
 
 See the [README in the template directory](template/README.md) for more information on the generated project.
 
+## Options
+
+- `--build`: Runs `npm install` then `npm run build` after the template folder is copied.
+
 ## Future work
 
 This is still pretty bare-bones. In the future I'd like to have options for generating different types of projects (CLI/server).
