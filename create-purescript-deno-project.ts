@@ -18,8 +18,19 @@ function exitWithError(message: string) {
 }
 
 function validateArgs(args: { [key: string]: unknown; _: (string | number)[]; }): void {
+
+  for (const key in args) {
+    switch (key) {
+      case 'build':
+      case '_':
+        break;
+      default:
+        exitWithError(`Unknown argument: ${key}\nUssage: create-purescript-deno-project [--build] [target-directory]`);
+    }
+  }
+
   if (args._.length > 1) {
-    exitWithError('Too many arguments. Usage: create-purescript-deno-project [target-directory]');
+    exitWithError('Too many arguments\nUsage: create-purescript-deno-project [--build] [target-directory]');
   }
 }
 
@@ -95,7 +106,13 @@ async function copyTemplateFiles(targetDirectory: string): Promise<void> {
   }));
 }
 
-export async function createPurescriptDenoProject(targetDirectory: string): Promise<void> {
+const defaultOptions: CreateProjecOptions = {
+  build: false,
+}
+
+export async function createPurescriptDenoProject(targetDirectory: string, options: Partial<CreateProjecOptions> = {}): Promise<void> {
+
+  const opts = { ...defaultOptions, ...options };
 
   if (!path.isAbsolute(targetDirectory)) {
     targetDirectory = path.resolve(Deno.cwd(), targetDirectory);
@@ -109,11 +126,30 @@ export async function createPurescriptDenoProject(targetDirectory: string): Prom
   else {
     await downloadTemplateFiles(targetDirectory);
   }
+
+  if (opts.build) {
+    const installCommand = new Deno.Command('npm', {
+      args: ['install'],
+      cwd: targetDirectory,
+    });
+    const buildCommand = new Deno.Command('npm', {
+      args: ['run', 'build'],
+      cwd: targetDirectory,
+    });
+    console.log('Building project...');
+    await installCommand.output();
+    await buildCommand.output();
+    console.log('Project built successfully.');
+  }
 }
 
 if (import.meta.main) {
-  const args = parseArgs<Record<string, unknown>>(Deno.args, { stopEarly: true });
+  const args = parseArgs(Deno.args, { boolean: ['build'], stopEarly: true });
   validateArgs(args);
   const targetDirectory = args._[0] ? `${args._[0]}` : '.';
-  createPurescriptDenoProject(targetDirectory);
+  createPurescriptDenoProject(targetDirectory, args);
+}
+
+type CreateProjecOptions = {
+  build: boolean;
 }
