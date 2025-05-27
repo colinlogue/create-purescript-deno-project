@@ -128,11 +128,10 @@ export async function createPurescriptDenoProject(targetDirectory: string, optio
 }
 
 if (import.meta.main) {
-  const args = parseArgs(Deno.args, { 
+  const args = parseArgs(Deno.args, {
     boolean: ['build'],
-    string: ['template'], 
+    string: ['template'],
     default: { template: 'server' },
-    stopEarly: true 
   });
   validateArgs(args);
   const targetDirectory = args._[0] ? `${args._[0]}` : '.';
