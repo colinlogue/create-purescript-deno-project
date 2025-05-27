@@ -17,14 +17,16 @@ export async function zipAllTemplates() {
       }
     }
   } catch (e) {
-    console.error(`Error zipping templates: ${e.message}`);
+    if (e instanceof Error) {
+      console.error(`Error zipping templates: ${e.message}`);
+    }
     Deno.exit(1);
   }
 }
 
 export async function zipSingleTemplate(templateName: string) {
   const zipPath = join(Deno.cwd(), "templates", `${templateName}.zip`);
-  
+
   // Remove old zip if exists
   try {
     await Deno.remove(zipPath);
