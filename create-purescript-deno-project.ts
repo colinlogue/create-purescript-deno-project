@@ -1,16 +1,7 @@
 import { parseArgs } from 'jsr:@std/cli@1.0.17/parse-args';
 import * as path from 'jsr:@std/path@1.0.9';
 
-const templateFiles = [
-  'src/Main.purs',
-  'src/Main.ts.template',
-  'test/Test/Main.purs',
-  '.gitignore.template',
-  'package.json',
-  'serve.ts.template',
-  'spago.yaml',
-  'tsconfig.json',
-];
+
 
 function exitWithError(message: string) {
   console.error(message);
@@ -56,54 +47,46 @@ async function validateTargetDirectory(targetDirectory: string): Promise<void> {
 
 }
 
-function destinationPath(filePath: string): string {
 
-  // To avoid the Deno compilation treating .ts files as modules to include,
-  // we save them with a .template suffix and remove it when copying.
-  // .gitignore files are also copied as .template files because they would
-  // otherwise be ignored when publishing to JSR.
-  return filePath.endsWith('.template')
-    ? filePath.slice(0, -'.template'.length)
-    : filePath;
-}
-
-async function downloadTemplateFiles(targetDirectory: string): Promise<void> {
-
+async function downloadAndUnzipTemplate(targetDirectory: string): Promise<void> {
+  // Download template.zip from the same location as the script
   const url = new URL(import.meta.url);
   const rootPath = url.pathname.split('/').slice(0, -1).join('/');
-  url.pathname = rootPath + '/template';
+  url.pathname = rootPath + '/template.zip';
 
-  await Promise.all(templateFiles.map(async (filePath) => {
-    const srcURL = new URL(url);
-    srcURL.pathname += '/' + filePath;
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    exitWithError(`Failed to download template.zip: ${resp.status} ${resp.statusText}`);
+  }
+  const zipData = new Uint8Array(await resp.arrayBuffer());
 
-    const destPath = path.join(targetDirectory, destinationPath(filePath));
-    const destDir = path.dirname(destPath);
-
-    await Deno.mkdir(destDir, { recursive: true });
-
-    const resp = await fetch(srcURL);
-    if (!resp.ok) {
-      exitWithError(`Failed to download ${srcURL}: ${resp.status} ${resp.statusText}`);
-    }
-
-    await Deno.writeTextFile(destPath, await resp.text());
-  }));
+  // Unzip template to the target directory
+  const tempZipPath = path.join(targetDirectory, 'template.zip');
+  await Deno.mkdir(targetDirectory, { recursive: true });
+  await Deno.writeFile(tempZipPath, zipData);
+  await unzipFile(tempZipPath, targetDirectory);
+  await Deno.remove(tempZipPath);
 }
 
-async function copyTemplateFiles(targetDirectory: string): Promise<void> {
+// TODO: Maybe we should manually unzip the file instead of useing a command?
+async function unzipFile(zipPath: string, destDir: string): Promise<void> {
+  const p = new Deno.Command('unzip', {
+    args: ['-o', zipPath, '-d', destDir],
+  });
+  const { code } = await p.output();
+  if (code !== 0) {
+    exitWithError(`Failed to unzip template.zip`);
+  }
+}
 
-  const templateDir = path.join(path.dirname(new URL(import.meta.url).pathname), 'template');
-
-  await Promise.all(templateFiles.map(async (filePath) => {
-
-    const srcPath = path.join(templateDir, filePath);
-    const destPath = path.join(targetDirectory, destinationPath(filePath));
-    const destDir = path.dirname(destPath);
-
-    await Deno.mkdir(destDir, { recursive: true });
-    await Deno.copyFile(srcPath, destPath);
-  }));
+async function copyAndUnzipTemplate(targetDirectory: string): Promise<void> {
+  // Copy template.zip from local directory and unzip
+  const templateZipPath = path.join(path.dirname(new URL(import.meta.url).pathname), 'template.zip');
+  await Deno.mkdir(targetDirectory, { recursive: true });
+  const destZipPath = path.join(targetDirectory, 'template.zip');
+  await Deno.copyFile(templateZipPath, destZipPath);
+  await unzipFile(destZipPath, targetDirectory);
+  await Deno.remove(destZipPath);
 }
 
 const defaultOptions: CreateProjecOptions = {
@@ -121,10 +104,9 @@ export async function createPurescriptDenoProject(targetDirectory: string, optio
   await validateTargetDirectory(targetDirectory);
 
   if (import.meta.url.startsWith('file://')) {
-    await copyTemplateFiles(targetDirectory);
-  }
-  else {
-    await downloadTemplateFiles(targetDirectory);
+    await copyAndUnzipTemplate(targetDirectory);
+  } else {
+    await downloadAndUnzipTemplate(targetDirectory);
   }
 
   if (opts.build) {

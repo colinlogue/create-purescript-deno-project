@@ -3,14 +3,15 @@
   "version": "0.1.5",
   "description": "A template for creating a PureScript project with a Deno backend.",
   "tasks": {
-    "compile": "deno compile --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts"
+    "compile": "deno compile --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts",
+    "zip": "deno run --allow-all scripts/zip-template.ts"
   },
   "exports": "./create-purescript-deno-project.ts",
   "license": "MIT",
   "publish": {
     "include": [
       "create-purescript-deno-project.ts",
-      "template",
+      "template.zip",
       "deno.lock",
       "README.md"
     ]
