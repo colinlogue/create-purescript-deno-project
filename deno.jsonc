@@ -4,6 +4,7 @@
   "description": "A template for creating a PureScript project with a Deno backend.",
   "tasks": {
     "compile": "deno compile --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts",
+    "publish": "deno run --allow-all scripts/publish.ts",
     "zip": "deno run --allow-all scripts/zip-template.ts"
   },
   "exports": "./create-purescript-deno-project.ts",

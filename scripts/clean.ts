@@ -6,7 +6,7 @@ import { join } from "jsr:@std/path@1.0.9";
 
 const zipPath = join(Deno.cwd(), "template.zip");
 
-async function cleanTemplateZip() {
+export async function cleanTemplateZip() {
   try {
     await Deno.remove(zipPath);
     console.log("Removed template.zip");
