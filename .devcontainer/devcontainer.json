@@ -19,9 +19,12 @@
       "settings": {
         "deno.enable": true,
         "deno.unstable": true,
+        "deno.enableJsr": true,
+        "deno.config": "deno.jsonc",
         "editor.formatOnSave": true
       }
     }
   },
+  "postCreateCommand": "deno registry link jsr",
   "remoteUser": "vscode"
 }
