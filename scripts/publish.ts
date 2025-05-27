@@ -1,14 +1,11 @@
 // scripts/publish.ts
 // Usage: deno run --allow-run --allow-read --allow-write scripts/publish.ts [publish args]
-// 1. Creates template.zip
+// 1. Creates template zip files for all templates
 // 2. Runs deno publish with any args
-// 3. Deletes template.zip (always)
+// 3. Deletes all template zip files (always)
 
-import { join } from "jsr:@std/path@1.0.9";
-import { zipTemplate } from "./zip-template.ts";
-import { cleanTemplateZip } from "./clean.ts";
-
-const zipPath = join(Deno.cwd(), "template.zip");
+import { zipAllTemplates } from "./zip-template.ts";
+import { cleanAllTemplateZips } from "./clean.ts";
 
 async function runDenoPublish(args: string[]) {
   const p = new Deno.Command("deno", {
@@ -28,13 +25,13 @@ if (import.meta.main) {
   const args = Deno.args;
   let code = 0;
   try {
-    await zipTemplate();
+    await zipAllTemplates();
     await runDenoPublish(args);
   } catch (e) {
     code = 1;
     console.error(e);
   } finally {
-    await cleanTemplateZip();
+    await cleanAllTemplateZips();
     Deno.exit(code);
   }
 }
