@@ -2,3 +2,4 @@
 template/package-lock.json
 dist
 template.zip
+tmp/
