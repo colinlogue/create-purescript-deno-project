@@ -1,18 +1,26 @@
 // scripts/clean.ts
-// Usage: deno run --allow-write scripts/clean.ts
-// Removes template.zip from the project root
+// Usage: deno run --allow-write --allow-read scripts/clean.ts
+// Removes template zip files from the templates directory
 
 import { join } from "jsr:@std/path@1.0.9";
 
-const zipPath = join(Deno.cwd(), "template.zip");
-
+// For backward compatibility
 export async function cleanTemplateZip() {
+  await cleanAllTemplateZips();
+}
+
+export async function cleanAllTemplateZips() {
   try {
-    await Deno.remove(zipPath);
-    console.log("Removed template.zip");
+    for await (const entry of Deno.readDir(join(Deno.cwd(), "templates"))) {
+      if (!entry.isDirectory && entry.name.endsWith(".zip")) {
+        const zipPath = join(Deno.cwd(), "templates", entry.name);
+        await Deno.remove(zipPath);
+        console.log(`Removed ${entry.name}`);
+      }
+    }
   } catch (e) {
     if (e instanceof Deno.errors.NotFound) {
-      console.log("template.zip does not exist");
+      console.log("Templates directory does not exist");
     } else {
       throw e;
     }
@@ -20,5 +28,5 @@ export async function cleanTemplateZip() {
 }
 
 if (import.meta.main) {
-  await cleanTemplateZip();
+  await cleanAllTemplateZips();
 }
