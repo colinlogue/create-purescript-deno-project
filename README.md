@@ -4,7 +4,7 @@ This module is a utility for creating a new Purescript project to be run with De
 
 ## Usage
 
-The script takes a single argument, a directory to initialize the project in. If no directory is provided, it will be initialized in the current working directory.
+The script requires a single argument, a directory to initialize the project in.
 
 To create a project in directory `my-project`:
 ```
