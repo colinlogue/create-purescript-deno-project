@@ -1,17 +1,63 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/assert@1.0.0": "1.0.0",
     "jsr:@std/cli@*": "1.0.17",
     "jsr:@std/cli@1.0.17": "1.0.17",
+    "jsr:@std/cli@^1.0.2": "1.0.17",
+    "jsr:@std/encoding@^1.0.1": "1.0.10",
+    "jsr:@std/fmt@1": "1.0.8",
+    "jsr:@std/http@1.0.0": "1.0.0",
+    "jsr:@std/internal@^1.0.1": "1.0.8",
+    "jsr:@std/media-types@^1.0.2": "1.1.0",
+    "jsr:@std/net@1": "1.0.4",
     "jsr:@std/path@*": "1.0.9",
-    "jsr:@std/path@1.0.9": "1.0.9"
+    "jsr:@std/path@1.0.9": "1.0.9",
+    "jsr:@std/path@^1.0.2": "1.0.9",
+    "jsr:@std/streams@1": "1.0.9"
   },
   "jsr": {
+    "@std/assert@1.0.0": {
+      "integrity": "0e4f6d873f7f35e2a1e6194ceee39686c996b9e5d134948e644d35d4c4df2008",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
     "@std/cli@1.0.17": {
       "integrity": "e15b9abe629e17be90cc6216327f03a29eae613365f1353837fa749aad29ce7b"
     },
+    "@std/encoding@1.0.10": {
+      "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
+    },
+    "@std/fmt@1.0.8": {
+      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
+    },
+    "@std/http@1.0.0": {
+      "integrity": "001812606b471c2d64799f14e5677bd26bfd029c35046eba0bddac1a49109789",
+      "dependencies": [
+        "jsr:@std/cli@^1.0.2",
+        "jsr:@std/encoding",
+        "jsr:@std/fmt",
+        "jsr:@std/media-types",
+        "jsr:@std/net",
+        "jsr:@std/path@^1.0.2",
+        "jsr:@std/streams"
+      ]
+    },
+    "@std/internal@1.0.8": {
+      "integrity": "fc66e846d8d38a47cffd274d80d2ca3f0de71040f855783724bb6b87f60891f5"
+    },
+    "@std/media-types@1.1.0": {
+      "integrity": "c9d093f0c05c3512932b330e3cc1fe1d627b301db33a4c2c2185c02471d6eaa4"
+    },
+    "@std/net@1.0.4": {
+      "integrity": "2f403b455ebbccf83d8a027d29c5a9e3a2452fea39bb2da7f2c04af09c8bc852"
+    },
     "@std/path@1.0.9": {
       "integrity": "260a49f11edd3db93dd38350bf9cd1b4d1366afa98e81b86167b4e3dd750129e"
+    },
+    "@std/streams@1.0.9": {
+      "integrity": "a9d26b1988cdd7aa7b1f4b51e1c36c1557f3f252880fa6cc5b9f37078b1a5035"
     }
   }
 }
