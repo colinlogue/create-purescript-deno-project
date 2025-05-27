@@ -16,6 +16,11 @@ You can also specify a template:
 deno run --allow-all jsr:@colinlogue/create-purescript-deno-project my-project --template server
 ```
 
+For a CLI application:
+```
+deno run --allow-all jsr:@colinlogue/create-purescript-deno-project my-project --template cli
+```
+
 If the directory already exists, it must be empty.
 
 See the [README in the templates directory](templates/server/README.md) for more information on the generated project.
@@ -23,12 +28,13 @@ See the [README in the templates directory](templates/server/README.md) for more
 ## Options
 
 - `--build`: Runs `npm install` then `npm run build` after the template folder is copied.
-- `--template=server`: Specifies which template to use (default: "server").
+- `--template=server`: Specifies which template to use (default: "server"). Available: "server", "cli".
 
 ## Available Templates
 
 Currently, the following templates are available:
 - `server`: A basic HTTP server application
+- `cli`: A command-line interface application
 
 ## Future work
 

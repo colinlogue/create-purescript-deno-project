@@ -12,18 +12,25 @@ export async function createTempDir(prefix = "test-"): Promise<string> {
 }
 
 // Function to validate that the project structure was created correctly
-export async function validateProjectStructure(targetDir: string): Promise<void> {
-  // Check for key files and directories that should exist
-  const expectedFiles = [
+export async function validateProjectStructure(targetDir: string, template: string = "server"): Promise<void> {
+  // Check for key files and directories that should exist for all templates
+  const commonFiles = [
     "package.json",
     "spago.yaml",
-    "serve.ts",
     "src/Main.purs",
     "src/Main.ts",
     "test/Test/Main.purs",
     "tsconfig.json",
     "README.md",
   ];
+
+  // Template-specific files
+  const templateSpecificFiles: Record<string, string[]> = {
+    server: ["serve.ts"],
+    cli: ["cli.ts"],
+  };
+
+  const expectedFiles = [...commonFiles, ...(templateSpecificFiles[template] || [])];
 
   for (const file of expectedFiles) {
     const fullPath = path.join(targetDir, file);
