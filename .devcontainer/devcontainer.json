@@ -1,6 +1,6 @@
 {
   "name": "PureScript Deno Development",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:lts",
+  "dockerFile": "Dockerfile",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -10,13 +10,10 @@
       ],
       "settings": {
         "deno.enable": true,
-        "deno.unstable": true,
-        "deno.enableJsr": true,
         "deno.config": "deno.jsonc",
         "editor.formatOnSave": true
       }
     }
   },
-  "postCreateCommand": "curl -fsSL https://deno.land/install.sh | sh && echo 'export DENO_INSTALL=\"/home/node/.deno\"' >> ~/.bashrc && echo 'export PATH=\"$DENO_INSTALL/bin:$PATH\"' >> ~/.bashrc && source ~/.bashrc && deno registry link jsr",
-  "remoteUser": "node"
+  "remoteUser": "vscode"
 }
