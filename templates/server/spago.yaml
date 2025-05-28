@@ -1,9 +1,12 @@
 package:
   name: template
   dependencies:
+    - aff
     - console
+    - deno-http-server
     - effect
     - prelude
+    - web-fetch
   test:
     main: Test.Main
     dependencies:
