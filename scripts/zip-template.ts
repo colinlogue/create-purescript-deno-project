@@ -26,6 +26,8 @@ export async function zipAllTemplates() {
 
 export async function zipSingleTemplate(templateName: string) {
   const zipPath = join(Deno.cwd(), "templates", `${templateName}.zip`);
+  const templateDir = join(Deno.cwd(), "templates", templateName);
+  const manifestPath = join(templateDir, "template.manifest");
 
   // Remove old zip if exists
   try {
@@ -34,11 +36,35 @@ export async function zipSingleTemplate(templateName: string) {
     // Ignore if file does not exist
   }
 
-  // Use system zip command to create the zip file
-  const templateDir = join("templates", templateName);
+  // Read manifest file to determine which files to include
+  let filesToInclude: string[];
+  try {
+    const manifestContent = await Deno.readTextFile(manifestPath);
+    filesToInclude = manifestContent
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+  } catch (_e) {
+    // Fall back to including all files if manifest doesn't exist
+    console.warn(`Warning: template.manifest not found for ${templateName}, including all files`);
+    const p = new Deno.Command("zip", {
+      args: ["-r", zipPath, "."],
+      cwd: templateDir,
+    });
+    const { code, stderr } = await p.output();
+    if (code !== 0) {
+      console.error(new TextDecoder().decode(stderr));
+      Deno.exit(code);
+    } else {
+      console.log(`Created ${templateName}.zip`);
+    }
+    return;
+  }
+
+  // Use system zip command to create the zip file with specific files
   const p = new Deno.Command("zip", {
-    args: ["-r", zipPath, "."],
-    cwd: join(Deno.cwd(), templateDir),
+    args: [zipPath, ...filesToInclude],
+    cwd: templateDir,
   });
   const { code, stderr } = await p.output();
   if (code !== 0) {
