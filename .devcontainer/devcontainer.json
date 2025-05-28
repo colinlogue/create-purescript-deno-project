@@ -1,0 +1,19 @@
+{
+  "name": "PureScript Deno Development",
+  "dockerFile": "Dockerfile",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "denoland.vscode-deno",
+        "nwolverson.ide-purescript",
+        "nwolverson.language-purescript"
+      ],
+      "settings": {
+        "deno.enable": true,
+        "deno.config": "deno.jsonc",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "remoteUser": "vscode"
+}
