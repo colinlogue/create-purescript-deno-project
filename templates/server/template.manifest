@@ -1,0 +1,8 @@
+README.md
+package.json
+serve.ts
+spago.yaml
+src/Main.purs
+src/Main.ts
+test/Test/Main.purs
+tsconfig.json
