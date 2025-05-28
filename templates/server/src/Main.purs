@@ -6,6 +6,7 @@ import Deno.HttpServer as HttpServer
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Effect.Class (liftEffect)
+import Web.Fetch.Request (Request)
 import Web.Fetch.Response (Response)
 import Web.Fetch.Response as Response
 
