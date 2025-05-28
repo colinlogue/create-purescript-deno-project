@@ -17,16 +17,16 @@ function validateArgs(args: { [key: string]: unknown; _: (string | number)[]; })
       case '_':
         break;
       default:
-        exitWithError(`Unknown argument: ${key}\nUssage: create-purescript-deno-project [--build] [--template=server] <target-directory>`);
+        exitWithError(`Unknown argument: ${key}\nUsage: create-purescript-deno-project [--build] [--template=server|cli] <target-directory>`);
     }
   }
 
   if (args._.length === 0) {
-    exitWithError('Target directory is required\nUsage: create-purescript-deno-project [--build] <target-directory>');
+    exitWithError('Target directory is required\nUsage: create-purescript-deno-project [--build] [--template=server|cli] <target-directory>');
   }
 
   if (args._.length > 1) {
-    exitWithError('Too many arguments\nUsage: create-purescript-deno-project [--build] [--template=server] <target-directory>');
+    exitWithError('Too many arguments\nUsage: create-purescript-deno-project [--build] [--template=server|cli] <target-directory>');
   }
 }
 
