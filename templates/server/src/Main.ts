@@ -1,6 +1,4 @@
 
-
-export const startServer = (msg: string) => () => {
-  Deno.serve(() => new Response(msg));
+export const textResponse = (text: string): Response => {
+  return new Response(text);
 }
-

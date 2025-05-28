@@ -18,9 +18,7 @@ export async function validateProjectStructure(targetDir: string, template: stri
     "package.json",
     "spago.yaml",
     "src/Main.purs",
-    "src/Main.ts",
     "test/Test/Main.purs",
-    "tsconfig.json",
     "README.md",
   ];
 

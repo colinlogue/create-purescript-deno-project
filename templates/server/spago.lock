@@ -5,14 +5,73 @@
         "path": "./",
         "core": {
           "dependencies": [
+            "aff",
             "console",
+            "deno-http-server",
             "effect",
-            "prelude"
+            "prelude",
+            "web-fetch"
           ],
           "build_plan": [
+            "aff",
+            "aff-promise",
+            "arraybuffer-types",
+            "arrays",
+            "bifunctors",
             "console",
+            "const",
+            "contravariant",
+            "control",
+            "datetime",
+            "deno-http-server",
+            "distributive",
             "effect",
-            "prelude"
+            "either",
+            "enums",
+            "exceptions",
+            "exists",
+            "foldable-traversable",
+            "foreign",
+            "foreign-object",
+            "functions",
+            "functors",
+            "gen",
+            "http-methods",
+            "identity",
+            "integers",
+            "invariant",
+            "js-promise",
+            "lazy",
+            "lists",
+            "maybe",
+            "media-types",
+            "newtype",
+            "nonempty",
+            "nullable",
+            "numbers",
+            "ordered-collections",
+            "orders",
+            "parallel",
+            "partial",
+            "prelude",
+            "profunctor",
+            "record",
+            "refs",
+            "safe-coerce",
+            "st",
+            "strings",
+            "tailrec",
+            "transformers",
+            "tuples",
+            "type-equality",
+            "typelevel-prelude",
+            "unfoldable",
+            "unsafe-coerce",
+            "web-dom",
+            "web-events",
+            "web-fetch",
+            "web-file",
+            "web-streams"
           ]
         },
         "test": {
@@ -702,6 +761,15 @@
         "unsafe-coerce"
       ]
     },
+    "aff-promise": {
+      "type": "registry",
+      "version": "4.0.0",
+      "integrity": "sha256-Kq5EupbUpXeUXx4JqGQE7/RTTz/H6idzWhsocwlEFhM=",
+      "dependencies": [
+        "aff",
+        "foreign"
+      ]
+    },
     "ansi": {
       "type": "registry",
       "version": "7.0.0",
@@ -875,6 +943,22 @@
         "partial",
         "prelude",
         "tuples"
+      ]
+    },
+    "deno-http-server": {
+      "type": "git",
+      "url": "https://github.com/colinlogue/purescript-deno-core",
+      "rev": "43f052d6fb89f59d40fcca5bd0506a9cfd79cbde",
+      "subdir": "packages/deno-http-server",
+      "dependencies": [
+        "aff",
+        "aff-promise",
+        "effect",
+        "functions",
+        "maybe",
+        "nullable",
+        "prelude",
+        "web-fetch"
       ]
     },
     "distributive": {
@@ -1079,6 +1163,16 @@
         "unfoldable"
       ]
     },
+    "http-methods": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-Orr7rbDGcp7qoqmUMXPRMjBx+C4jqOQcFe9+gE3nMgU=",
+      "dependencies": [
+        "either",
+        "prelude",
+        "strings"
+      ]
+    },
     "identity": {
       "type": "registry",
       "version": "6.0.0",
@@ -1122,6 +1216,19 @@
         "now"
       ]
     },
+    "js-promise": {
+      "type": "registry",
+      "version": "1.0.0",
+      "integrity": "sha256-kXNo5g9RJgPdrTuKRe5oG2kBIwPp+j5VDPDplqZBJzQ=",
+      "dependencies": [
+        "effect",
+        "exceptions",
+        "foldable-traversable",
+        "functions",
+        "maybe",
+        "prelude"
+      ]
+    },
     "lazy": {
       "type": "registry",
       "version": "6.0.0",
@@ -1159,6 +1266,15 @@
       "dependencies": [
         "control",
         "invariant",
+        "newtype",
+        "prelude"
+      ]
+    },
+    "media-types": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-n/4FoGBasbVSYscGVRSyBunQ6CZbL3jsYL+Lp01mc9k=",
+      "dependencies": [
         "newtype",
         "prelude"
       ]
@@ -1673,6 +1789,65 @@
       "version": "6.0.0",
       "integrity": "sha256-IqIYW4Vkevn8sI+6aUwRGvd87tVL36BBeOr0cGAE7t0=",
       "dependencies": []
+    },
+    "web-dom": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-1kSKWFDI4LupdmpjK01b1MMxDFW7jvatEgPgVmCmSBQ=",
+      "dependencies": [
+        "web-events"
+      ]
+    },
+    "web-events": {
+      "type": "registry",
+      "version": "4.0.0",
+      "integrity": "sha256-YDt8b6u1tzGtnWyNRodne57iO8FNSGPaTCVzBUyUn4k=",
+      "dependencies": [
+        "datetime",
+        "enums",
+        "foreign",
+        "nullable"
+      ]
+    },
+    "web-fetch": {
+      "type": "registry",
+      "version": "4.0.1",
+      "integrity": "sha256-IGyNkq+GilcHhfQslTxIp5bHon6f1UAiN3Cu414yAko=",
+      "dependencies": [
+        "effect",
+        "foreign-object",
+        "http-methods",
+        "js-promise",
+        "prelude",
+        "record",
+        "typelevel-prelude",
+        "web-file",
+        "web-streams"
+      ]
+    },
+    "web-file": {
+      "type": "registry",
+      "version": "4.0.0",
+      "integrity": "sha256-1h5jPBkvjY71jLEdwVadXCx86/2inNoMBO//Rd3eCSU=",
+      "dependencies": [
+        "foreign",
+        "media-types",
+        "web-dom"
+      ]
+    },
+    "web-streams": {
+      "type": "registry",
+      "version": "4.0.0",
+      "integrity": "sha256-02HgXIk6R+pU9fWOX42krukAI1QkCbLKcCv3b4Jq6WI=",
+      "dependencies": [
+        "arraybuffer-types",
+        "effect",
+        "exceptions",
+        "js-promise",
+        "nullable",
+        "prelude",
+        "tuples"
+      ]
     }
   }
 }
