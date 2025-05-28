@@ -1,0 +1,30 @@
+// scripts/clean.ts
+// Usage: deno run --import-map=import_map.json --allow-write --allow-read scripts/clean.ts
+// Removes template zip files from the templates directory
+import { join } from "jsr:@std/path@1.0.9";
+// For backward compatibility
+export async function cleanTemplateZip() {
+  await cleanAllTemplateZips();
+}
+export async function cleanAllTemplateZips() {
+  try {
+    for await (const entry of Deno.readDir(join(Deno.cwd(), "templates"))){
+      if (!entry.isDirectory && entry.name.endsWith(".zip")) {
+        const zipPath = join(Deno.cwd(), "templates", entry.name);
+        await Deno.remove(zipPath);
+        console.log(`Removed ${entry.name}`);
+      }
+    }
+  } catch (e) {
+    if (e instanceof Deno.errors.NotFound) {
+      console.log("Templates directory does not exist");
+    } else {
+      throw e;
+    }
+  }
+}
+if (import.meta.main) {
+  await cleanAllTemplateZips();
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS9ydW5uZXIvd29yay9jcmVhdGUtcHVyZXNjcmlwdC1kZW5vLXByb2plY3QvY3JlYXRlLXB1cmVzY3JpcHQtZGVuby1wcm9qZWN0L3NjcmlwdHMvY2xlYW4udHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gc2NyaXB0cy9jbGVhbi50c1xuLy8gVXNhZ2U6IGRlbm8gcnVuIC0taW1wb3J0LW1hcD1pbXBvcnRfbWFwLmpzb24gLS1hbGxvdy13cml0ZSAtLWFsbG93LXJlYWQgc2NyaXB0cy9jbGVhbi50c1xuLy8gUmVtb3ZlcyB0ZW1wbGF0ZSB6aXAgZmlsZXMgZnJvbSB0aGUgdGVtcGxhdGVzIGRpcmVjdG9yeVxuXG5pbXBvcnQgeyBqb2luIH0gZnJvbSBcImpzcjpAc3RkL3BhdGhAMS4wLjlcIjtcblxuLy8gRm9yIGJhY2t3YXJkIGNvbXBhdGliaWxpdHlcbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBjbGVhblRlbXBsYXRlWmlwKCkge1xuICBhd2FpdCBjbGVhbkFsbFRlbXBsYXRlWmlwcygpO1xufVxuXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gY2xlYW5BbGxUZW1wbGF0ZVppcHMoKSB7XG4gIHRyeSB7XG4gICAgZm9yIGF3YWl0IChjb25zdCBlbnRyeSBvZiBEZW5vLnJlYWREaXIoam9pbihEZW5vLmN3ZCgpLCBcInRlbXBsYXRlc1wiKSkpIHtcbiAgICAgIGlmICghZW50cnkuaXNEaXJlY3RvcnkgJiYgZW50cnkubmFtZS5lbmRzV2l0aChcIi56aXBcIikpIHtcbiAgICAgICAgY29uc3QgemlwUGF0aCA9IGpvaW4oRGVuby5jd2QoKSwgXCJ0ZW1wbGF0ZXNcIiwgZW50cnkubmFtZSk7XG4gICAgICAgIGF3YWl0IERlbm8ucmVtb3ZlKHppcFBhdGgpO1xuICAgICAgICBjb25zb2xlLmxvZyhgUmVtb3ZlZCAke2VudHJ5Lm5hbWV9YCk7XG4gICAgICB9XG4gICAgfVxuICB9IGNhdGNoIChlKSB7XG4gICAgaWYgKGUgaW5zdGFuY2VvZiBEZW5vLmVycm9ycy5Ob3RGb3VuZCkge1xuICAgICAgY29uc29sZS5sb2coXCJUZW1wbGF0ZXMgZGlyZWN0b3J5IGRvZXMgbm90IGV4aXN0XCIpO1xuICAgIH0gZWxzZSB7XG4gICAgICB0aHJvdyBlO1xuICAgIH1cbiAgfVxufVxuXG5pZiAoaW1wb3J0Lm1ldGEubWFpbikge1xuICBhd2FpdCBjbGVhbkFsbFRlbXBsYXRlWmlwcygpO1xufVxuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG1CQUFtQjtBQUNuQiwyRkFBMkY7QUFDM0YsMERBQTBEO0FBRTFELFNBQVMsSUFBSSxRQUFRLHNCQUFzQjtBQUUzQyw2QkFBNkI7QUFDN0IsT0FBTyxlQUFlO0VBQ3BCLE1BQU07QUFDUjtBQUVBLE9BQU8sZUFBZTtFQUNwQixJQUFJO0lBQ0YsV0FBVyxNQUFNLFNBQVMsS0FBSyxPQUFPLENBQUMsS0FBSyxLQUFLLEdBQUcsSUFBSSxjQUFlO01BQ3JFLElBQUksQ0FBQyxNQUFNLFdBQVcsSUFBSSxNQUFNLElBQUksQ0FBQyxRQUFRLENBQUMsU0FBUztRQUNyRCxNQUFNLFVBQVUsS0FBSyxLQUFLLEdBQUcsSUFBSSxhQUFhLE1BQU0sSUFBSTtRQUN4RCxNQUFNLEtBQUssTUFBTSxDQUFDO1FBQ2xCLFFBQVEsR0FBRyxDQUFDLENBQUMsUUFBUSxFQUFFLE1BQU0sSUFBSSxFQUFFO01BQ3JDO0lBQ0Y7RUFDRixFQUFFLE9BQU8sR0FBRztJQUNWLElBQUksYUFBYSxLQUFLLE1BQU0sQ0FBQyxRQUFRLEVBQUU7TUFDckMsUUFBUSxHQUFHLENBQUM7SUFDZCxPQUFPO01BQ0wsTUFBTTtJQUNSO0VBQ0Y7QUFDRjtBQUVBLElBQUksWUFBWSxJQUFJLEVBQUU7RUFDcEIsTUFBTTtBQUNSIn0=
+// denoCacheMetadata=3107188212931987992,3622151619433503418

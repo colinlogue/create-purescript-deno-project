@@ -4,11 +4,16 @@
   "description": "A template for creating a PureScript project with a Deno backend.",
   "tasks": {
     "compile": "deno compile --import-map=import_map.json --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts",
+    "compile:offline": "deno compile --import-map=import_map.json --no-remote --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts",
     "publish": "deno run --import-map=import_map.json --allow-all scripts/publish.ts",
     "zip": "deno run --import-map=import_map.json --allow-all scripts/zip-template.ts",
+    "zip:offline": "deno run --import-map=import_map.json --no-remote --allow-all scripts/zip-template.ts",
     "clean": "deno run --import-map=import_map.json --allow-all scripts/clean.ts",
+    "clean:offline": "deno run --import-map=import_map.json --no-remote --allow-all scripts/clean.ts",
     "test": "deno test --import-map=import_map.json --allow-all test/",
+    "test:offline": "deno test --import-map=import_map.json --no-remote --allow-all test/",
     "test:local": "deno test --import-map=import_map.json --allow-all test/local.test.ts",
+    "test:local:offline": "deno test --import-map=import_map.json --no-remote --allow-all test/local.test.ts",
     "test:remote": "deno test --import-map=import_map.json --allow-all test/remote.test.ts"
   },
   "exports": "./create-purescript-deno-project.ts",

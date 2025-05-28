@@ -2,6 +2,6 @@
   "imports": {
     "jsr:@std/path@1.0.9": "./vendor/@std/path@1.0.9/mod.ts",
     "jsr:@std/assert@1.0.0": "./vendor/@std/assert@1.0.0/mod.ts",
-    "jsr:@std/cli@1.0.17/parse-args": "./vendor/@std/cli@1.0.17/parse-args.ts"
+    "jsr:@std/cli@1.0.17/parse-args": "./vendor/@std/cli@1.0.17/parse_args.ts"
   }
 }

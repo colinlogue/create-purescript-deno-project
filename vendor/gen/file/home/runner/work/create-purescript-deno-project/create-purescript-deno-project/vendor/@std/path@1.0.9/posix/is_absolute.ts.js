@@ -1,0 +1,24 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+import { assertPath } from "../_common/assert_path.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+/**
+ * Verifies whether provided path is absolute.
+ *
+ * @example Usage
+ * ```ts
+ * import { isAbsolute } from "@std/path/posix/is-absolute";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * assert(isAbsolute("/home/user/Documents/"));
+ * assertFalse(isAbsolute("home/user/Documents/"));
+ * ```
+ *
+ * @param path The path to verify.
+ * @returns Whether the path is absolute.
+ */ export function isAbsolute(path) {
+  assertPath(path);
+  return path.length > 0 && isPosixPathSeparator(path.charCodeAt(0));
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS9ydW5uZXIvd29yay9jcmVhdGUtcHVyZXNjcmlwdC1kZW5vLXByb2plY3QvY3JlYXRlLXB1cmVzY3JpcHQtZGVuby1wcm9qZWN0L3ZlbmRvci9Ac3RkL3BhdGhAMS4wLjkvcG9zaXgvaXNfYWJzb2x1dGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gQ29weXJpZ2h0IDIwMTgtMjAyNSB0aGUgRGVubyBhdXRob3JzLiBNSVQgbGljZW5zZS5cbi8vIFRoaXMgbW9kdWxlIGlzIGJyb3dzZXIgY29tcGF0aWJsZS5cblxuaW1wb3J0IHsgYXNzZXJ0UGF0aCB9IGZyb20gXCIuLi9fY29tbW9uL2Fzc2VydF9wYXRoLnRzXCI7XG5pbXBvcnQgeyBpc1Bvc2l4UGF0aFNlcGFyYXRvciB9IGZyb20gXCIuL191dGlsLnRzXCI7XG5cbi8qKlxuICogVmVyaWZpZXMgd2hldGhlciBwcm92aWRlZCBwYXRoIGlzIGFic29sdXRlLlxuICpcbiAqIEBleGFtcGxlIFVzYWdlXG4gKiBgYGB0c1xuICogaW1wb3J0IHsgaXNBYnNvbHV0ZSB9IGZyb20gXCJAc3RkL3BhdGgvcG9zaXgvaXMtYWJzb2x1dGVcIjtcbiAqIGltcG9ydCB7IGFzc2VydCwgYXNzZXJ0RmFsc2UgfSBmcm9tIFwiQHN0ZC9hc3NlcnRcIjtcbiAqXG4gKiBhc3NlcnQoaXNBYnNvbHV0ZShcIi9ob21lL3VzZXIvRG9jdW1lbnRzL1wiKSk7XG4gKiBhc3NlcnRGYWxzZShpc0Fic29sdXRlKFwiaG9tZS91c2VyL0RvY3VtZW50cy9cIikpO1xuICogYGBgXG4gKlxuICogQHBhcmFtIHBhdGggVGhlIHBhdGggdG8gdmVyaWZ5LlxuICogQHJldHVybnMgV2hldGhlciB0aGUgcGF0aCBpcyBhYnNvbHV0ZS5cbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGlzQWJzb2x1dGUocGF0aDogc3RyaW5nKTogYm9vbGVhbiB7XG4gIGFzc2VydFBhdGgocGF0aCk7XG4gIHJldHVybiBwYXRoLmxlbmd0aCA+IDAgJiYgaXNQb3NpeFBhdGhTZXBhcmF0b3IocGF0aC5jaGFyQ29kZUF0KDApKTtcbn1cbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxxREFBcUQ7QUFDckQscUNBQXFDO0FBRXJDLFNBQVMsVUFBVSxRQUFRLDRCQUE0QjtBQUN2RCxTQUFTLG9CQUFvQixRQUFRLGFBQWE7QUFFbEQ7Ozs7Ozs7Ozs7Ozs7O0NBY0MsR0FDRCxPQUFPLFNBQVMsV0FBVyxJQUFZO0VBQ3JDLFdBQVc7RUFDWCxPQUFPLEtBQUssTUFBTSxHQUFHLEtBQUsscUJBQXFCLEtBQUssVUFBVSxDQUFDO0FBQ2pFIn0=
+// denoCacheMetadata=4385370689447247142,10111894659653887853
