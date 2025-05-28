@@ -1,5 +1,5 @@
 // scripts/clean.ts
-// Usage: deno run --allow-write --allow-read scripts/clean.ts
+// Usage: deno run --import-map=import_map.json --allow-write --allow-read scripts/clean.ts
 // Removes template zip files from the templates directory
 
 import { join } from "jsr:@std/path@1.0.9";

@@ -1,5 +1,5 @@
 // scripts/publish.ts
-// Usage: deno run --allow-run --allow-read --allow-write scripts/publish.ts [publish args]
+// Usage: deno run --import-map=import_map.json --allow-run --allow-read --allow-write scripts/publish.ts [publish args]
 // 1. Creates template zip files for all templates
 // 2. Runs deno publish with any args
 // 3. Deletes all template zip files (always)

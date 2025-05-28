@@ -1,5 +1,5 @@
 // scripts/zip-template.ts
-// Usage: deno run --allow-read --allow-write scripts/zip-template.ts
+// Usage: deno run --import-map=import_map.json --allow-read --allow-write scripts/zip-template.ts
 // Zips all template directories into template zip files at the templates directory
 
 import { join } from "jsr:@std/path@1.0.9";
