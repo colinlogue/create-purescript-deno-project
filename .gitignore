@@ -4,3 +4,8 @@ dist
 template.zip
 templates/*.zip
 tmp/
+test-dir*/
+vendor/gen/
+vendor/*cache*
+vendor/*.wal
+vendor/*.shm
