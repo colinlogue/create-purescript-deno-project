@@ -46,19 +46,8 @@ export async function zipSingleTemplate(templateName: string) {
       .filter(line => line.length > 0);
   } catch (_e) {
     // Fall back to including all files if manifest doesn't exist
-    console.warn(`Warning: template.manifest not found for ${templateName}, including all files`);
-    const p = new Deno.Command("zip", {
-      args: ["-r", zipPath, "."],
-      cwd: templateDir,
-    });
-    const { code, stderr } = await p.output();
-    if (code !== 0) {
-      console.error(new TextDecoder().decode(stderr));
-      Deno.exit(code);
-    } else {
-      console.log(`Created ${templateName}.zip`);
-    }
-    return;
+    console.error(`template.manifest not found for ${templateName}`);
+    Deno.exit(1);
   }
 
   // Use system zip command to create the zip file with specific files
