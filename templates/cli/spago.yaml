@@ -1,5 +1,5 @@
 package:
-  name: template
+  name: deno-cli-project
   dependencies:
     - aff
     - console
@@ -9,7 +9,9 @@ package:
     - web-encoding
   test:
     main: Test.Main
-    dependencies: []
+    dependencies:
+      - spec
+      - spec-deno
 workspace:
   packageSet:
     registry: 64.8.0
@@ -42,3 +44,6 @@ workspace:
       git: https://github.com/colinlogue/purescript-deno-core
       ref: v0.0.6
       subdir: packages/deno-subprocess
+    spec-deno:
+      git: https://github.com/colinlogue/purescript-spec-deno
+      ref: f3590752c6177c10518f86f73c411279320f72e1
