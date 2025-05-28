@@ -6,7 +6,9 @@ package:
     - prelude
   test:
     main: Test.Main
-    dependencies: []
+    dependencies:
+      - spec
+      - spec-deno
 workspace:
   packageSet:
     registry: 64.8.0
