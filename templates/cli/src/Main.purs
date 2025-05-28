@@ -2,10 +2,13 @@ module Main where
 
 import Prelude
 
+import Deno.IO (stdout)
+import Deno.IO.OutputStream as OutputStream
 import Effect (Effect)
+import Web.Encoding.TextEncoder as TextEncoder
 
-
-foreign import logMessage :: String -> Effect Unit
 
 main :: Effect Unit
-main = logMessage "Hello from PureScript CLI! 🎉"
+main = do
+  str <- TextEncoder.new <#> TextEncoder.encode "🦕\n"
+  void $ OutputStream.writeSync str stdout

@@ -1,13 +1,44 @@
 package:
   name: template
   dependencies:
+    - aff
     - console
+    - deno-io
     - effect
     - prelude
+    - web-encoding
   test:
     main: Test.Main
     dependencies: []
 workspace:
   packageSet:
     registry: 64.8.0
-  extraPackages: {}
+  extraPackages:
+    deno-errors:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-errors
+    deno-file-system:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-file-system
+    deno-http-server:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-http-server
+    deno-io:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-io
+    deno-runtime:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-runtime
+    deno-shared:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-shared
+    deno-subprocess:
+      git: https://github.com/colinlogue/purescript-deno-core
+      ref: v0.0.6
+      subdir: packages/deno-subprocess
