@@ -2,7 +2,7 @@ module Main where
 
 import Prelude
 
-import Data.String (take, stripPrefix)
+import Data.String (stripPrefix)
 import Data.String.Pattern (Pattern(..))
 import Deno.HttpServer as HttpServer
 import Effect (Effect)
@@ -24,8 +24,7 @@ main = do
 
 handleRequest :: Request -> Response -> Effect Response
 handleRequest req _ = liftEffect do
-  let requestUrl = url req
-  let pathname = extractPathname requestUrl
+  let pathname = url req
   
   case pathname of
     "/" -> do
@@ -50,10 +49,3 @@ isApiPath path =
   case stripPrefix (Pattern "/api/") path of
     Nothing -> false
     Just _ -> true
-
-extractPathname :: String -> String
-extractPathname fullUrl = 
-  -- Simple pathname extraction
-  if take 1 fullUrl == "/"
-    then fullUrl
-    else "/"
