@@ -6,14 +6,11 @@ This project was generated with [create-purescript-deno-project](https://jsr.io/
 
 This web app template provides:
 
-- **Static HTML serving**: The root path `/` serves a basic HTML page
-- **API routing**: Paths starting with `/api/` fetch files from a JSON database  
+- **Static HTML serving**: The root path `/` serves a basic HTML page from the HTML templates directory
+- **API routing**: Paths starting with `/api/` fetch files from a JSON database with CRUD operations
 - **404 handling**: All other paths return a 404 status with a custom error page
 - **HTML templates**: Static HTML files are stored in the `html/` directory
-
-## Difference with `spago init`
-
-The main difference between this project and one generated with `spago init` is that this project is intended to be run using Deno as its JavaScript runtime rather than Node.
+- **JSON database**: Simple file-based database for storing and retrieving data
 
 ### Dependencies
 
