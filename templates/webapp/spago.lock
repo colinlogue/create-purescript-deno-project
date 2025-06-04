@@ -7,7 +7,9 @@
           "dependencies": [
             "aff",
             "console",
+            "deno-file-system",
             "deno-http-server",
+            "deno-json-db",
             "effect",
             "prelude",
             "web-fetch"
@@ -15,15 +17,29 @@
           "build_plan": [
             "aff",
             "aff-promise",
+            "ansi",
+            "argonaut",
+            "argonaut-codecs",
+            "argonaut-core",
+            "argonaut-traversals",
             "arraybuffer-types",
             "arrays",
+            "avar",
             "bifunctors",
+            "catenable-lists",
+            "codec",
+            "codec-argonaut",
             "console",
             "const",
             "contravariant",
             "control",
             "datetime",
+            "debug",
+            "deno-errors",
+            "deno-file-system",
             "deno-http-server",
+            "deno-json-db",
+            "deno-shared",
             "distributive",
             "effect",
             "either",
@@ -33,6 +49,8 @@
             "foldable-traversable",
             "foreign",
             "foreign-object",
+            "fork",
+            "free",
             "functions",
             "functors",
             "gen",
@@ -45,19 +63,25 @@
             "lists",
             "maybe",
             "media-types",
+            "mmorph",
             "newtype",
             "nonempty",
+            "now",
             "nullable",
             "numbers",
             "ordered-collections",
             "orders",
             "parallel",
             "partial",
+            "pipes",
             "prelude",
             "profunctor",
+            "profunctor-lenses",
+            "random",
             "record",
             "refs",
             "safe-coerce",
+            "spec",
             "st",
             "strings",
             "tailrec",
@@ -67,11 +91,13 @@
             "typelevel-prelude",
             "unfoldable",
             "unsafe-coerce",
+            "variant",
             "web-dom",
             "web-events",
             "web-fetch",
             "web-file",
-            "web-streams"
+            "web-streams",
+            "web-url"
           ]
         },
         "test": {
@@ -698,37 +724,41 @@
     "extra_packages": {
       "deno-errors": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-errors"
       },
       "deno-file-system": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-file-system"
       },
       "deno-http-server": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-http-server"
       },
       "deno-io": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-io"
+      },
+      "deno-json-db": {
+        "git": "https://github.com/colinlogue/purescript-deno-json-db",
+        "ref": "v0.0.1"
       },
       "deno-runtime": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-runtime"
       },
       "deno-shared": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-shared"
       },
       "deno-subprocess": {
         "git": "https://github.com/colinlogue/purescript-deno-core",
-        "ref": "v0.0.6",
+        "ref": "v0.0.7",
         "subdir": "packages/deno-subprocess"
       },
       "spec-deno": {
@@ -780,6 +810,16 @@
         "strings"
       ]
     },
+    "argonaut": {
+      "type": "registry",
+      "version": "9.0.0",
+      "integrity": "sha256-9sHzkzcFkaMUa9+3FjIybJDYnHtY4Jp4zHOJ84qPTXo=",
+      "dependencies": [
+        "argonaut-codecs",
+        "argonaut-core",
+        "argonaut-traversals"
+      ]
+    },
     "argonaut-codecs": {
       "type": "registry",
       "version": "9.1.0",
@@ -814,6 +854,16 @@
         "prelude",
         "strings",
         "tailrec"
+      ]
+    },
+    "argonaut-traversals": {
+      "type": "registry",
+      "version": "10.0.0",
+      "integrity": "sha256-9nSfqR70rjiNWVVsCoK+jrm9dmyZTx89IKNYO6uNUIk=",
+      "dependencies": [
+        "argonaut-codecs",
+        "argonaut-core",
+        "profunctor-lenses"
       ]
     },
     "arraybuffer-types": {
@@ -882,6 +932,28 @@
         "unfoldable"
       ]
     },
+    "codec": {
+      "type": "registry",
+      "version": "6.1.0",
+      "integrity": "sha256-6vMLNlsJxQarVQ9cn1FYfl5x6opfzxAza15SzRdxFxQ=",
+      "dependencies": [
+        "bifunctors",
+        "profunctor"
+      ]
+    },
+    "codec-argonaut": {
+      "type": "registry",
+      "version": "10.0.0",
+      "integrity": "sha256-n80U8KiBk333qfQwDobSZWiyNg9BA3CL/EwFznIdRwI=",
+      "dependencies": [
+        "argonaut-core",
+        "codec",
+        "foreign-object",
+        "ordered-collections",
+        "type-equality",
+        "variant"
+      ]
+    },
     "console": {
       "type": "registry",
       "version": "6.1.0",
@@ -945,10 +1017,46 @@
         "tuples"
       ]
     },
+    "debug": {
+      "type": "registry",
+      "version": "6.0.2",
+      "integrity": "sha256-vmkYFuXYuELBzeauvgHG6E6Kf/Hp1dAnxwE9ByHfwSg=",
+      "dependencies": [
+        "functions",
+        "prelude"
+      ]
+    },
+    "deno-errors": {
+      "type": "git",
+      "url": "https://github.com/colinlogue/purescript-deno-core",
+      "rev": "1c20b63855db6d2375a69b1f5ba80ab71a6e3956",
+      "subdir": "packages/deno-errors",
+      "dependencies": [
+        "exceptions"
+      ]
+    },
+    "deno-file-system": {
+      "type": "git",
+      "url": "https://github.com/colinlogue/purescript-deno-core",
+      "rev": "1c20b63855db6d2375a69b1f5ba80ab71a6e3956",
+      "subdir": "packages/deno-file-system",
+      "dependencies": [
+        "aff",
+        "arraybuffer-types",
+        "deno-shared",
+        "effect",
+        "exceptions",
+        "functions",
+        "maybe",
+        "nullable",
+        "prelude",
+        "web-streams"
+      ]
+    },
     "deno-http-server": {
       "type": "git",
       "url": "https://github.com/colinlogue/purescript-deno-core",
-      "rev": "43f052d6fb89f59d40fcca5bd0506a9cfd79cbde",
+      "rev": "1c20b63855db6d2375a69b1f5ba80ab71a6e3956",
       "subdir": "packages/deno-http-server",
       "dependencies": [
         "aff",
@@ -959,6 +1067,46 @@
         "nullable",
         "prelude",
         "web-fetch"
+      ]
+    },
+    "deno-json-db": {
+      "type": "git",
+      "url": "https://github.com/colinlogue/purescript-deno-json-db",
+      "rev": "a8e6d84284ce77147cdc7317521faafc9ee36493",
+      "dependencies": [
+        "aff",
+        "aff-promise",
+        "argonaut",
+        "codec-argonaut",
+        "console",
+        "debug",
+        "deno-errors",
+        "deno-file-system",
+        "deno-http-server",
+        "effect",
+        "nullable",
+        "prelude",
+        "random",
+        "strings",
+        "web-fetch",
+        "web-url"
+      ]
+    },
+    "deno-shared": {
+      "type": "git",
+      "url": "https://github.com/colinlogue/purescript-deno-core",
+      "rev": "1c20b63855db6d2375a69b1f5ba80ab71a6e3956",
+      "subdir": "packages/deno-shared",
+      "dependencies": [
+        "aff",
+        "effect",
+        "either",
+        "exceptions",
+        "maybe",
+        "nullable",
+        "prelude",
+        "unsafe-coerce",
+        "web-url"
       ]
     },
     "distributive": {
@@ -1583,6 +1731,42 @@
         "tuples"
       ]
     },
+    "profunctor-lenses": {
+      "type": "registry",
+      "version": "8.0.0",
+      "integrity": "sha256-K7f29rHRHgVSb2Y/PaSKtfYPriP6n87BJNO7EhsZHas=",
+      "dependencies": [
+        "arrays",
+        "bifunctors",
+        "const",
+        "control",
+        "distributive",
+        "either",
+        "foldable-traversable",
+        "foreign-object",
+        "functors",
+        "identity",
+        "lists",
+        "maybe",
+        "newtype",
+        "ordered-collections",
+        "partial",
+        "prelude",
+        "profunctor",
+        "record",
+        "transformers",
+        "tuples"
+      ]
+    },
+    "random": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-CJ611a35MPCE7XQMp0rdC6MCn76znlhisiCRgboAG+Q=",
+      "dependencies": [
+        "effect",
+        "integers"
+      ]
+    },
     "record": {
       "type": "registry",
       "version": "4.0.0",
@@ -1790,6 +1974,21 @@
       "integrity": "sha256-IqIYW4Vkevn8sI+6aUwRGvd87tVL36BBeOr0cGAE7t0=",
       "dependencies": []
     },
+    "variant": {
+      "type": "registry",
+      "version": "8.0.0",
+      "integrity": "sha256-SR//zQDg2dnbB8ZHslcxieUkCeNlbMToapvmh9onTtw=",
+      "dependencies": [
+        "enums",
+        "lists",
+        "maybe",
+        "partial",
+        "prelude",
+        "record",
+        "tuples",
+        "unsafe-coerce"
+      ]
+    },
     "web-dom": {
       "type": "registry",
       "version": "6.0.0",
@@ -1846,6 +2045,20 @@
         "js-promise",
         "nullable",
         "prelude",
+        "tuples"
+      ]
+    },
+    "web-url": {
+      "type": "registry",
+      "version": "2.0.0",
+      "integrity": "sha256-isicTqg0+JZmIK+eD3kwQroOocufYDGZVNIx/wFw488=",
+      "dependencies": [
+        "aff",
+        "effect",
+        "maybe",
+        "partial",
+        "prelude",
+        "spec",
         "tuples"
       ]
     }

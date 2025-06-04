@@ -4,6 +4,7 @@ package:
     - aff
     - console
     - deno-http-server
+    - deno-file-system
     - deno-json-db
     - effect
     - prelude
@@ -19,34 +20,35 @@ workspace:
   extraPackages:
     deno-errors:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-errors
     deno-file-system:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-file-system
     deno-http-server:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-http-server
     deno-io:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-io
     deno-runtime:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-runtime
     deno-shared:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-shared
     deno-subprocess:
       git: https://github.com/colinlogue/purescript-deno-core
-      ref: v0.0.6
+      ref: v0.0.7
       subdir: packages/deno-subprocess
     spec-deno:
       git: https://github.com/colinlogue/purescript-spec-deno
       ref: f3590752c6177c10518f86f73c411279320f72e1
     deno-json-db:
       git: https://github.com/colinlogue/purescript-deno-json-db
+      ref: v0.0.1
