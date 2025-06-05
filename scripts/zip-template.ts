@@ -36,6 +36,7 @@ export async function zipSingleTemplate(templateName: string) {
     // Ignore if file does not exist
   }
 
+
   // Read manifest file to determine which files to include
   let filesToInclude: string[];
   try {
@@ -45,9 +46,21 @@ export async function zipSingleTemplate(templateName: string) {
       .map(line => line.trim())
       .filter(line => line.length > 0);
   } catch (_e) {
-    // Fall back to including all files if manifest doesn't exist
     console.error(`template.manifest not found for ${templateName}`);
     Deno.exit(1);
+  }
+
+  // Check that every file in the manifest exists
+  for (const file of filesToInclude) {
+    const filePath = join(templateDir, file);
+    try {
+      const stat = await Deno.stat(filePath);
+      if (!stat.isFile && !stat.isDirectory) {
+        throw new Error();
+      }
+    } catch (_e) {
+      throw new Error(`File listed in manifest does not exist: ${file} (template: ${templateName})`);
+    }
   }
 
   // Use system zip command to create the zip file with specific files
