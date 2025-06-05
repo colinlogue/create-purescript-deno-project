@@ -120,3 +120,58 @@ Deno.test("Local execution - creates and builds CLI project in temporary directo
     }
   }
 });
+
+// Test webapp template creation
+Deno.test("Local execution - creates webapp project in temporary directory", async () => {
+  let tempDir = "";
+
+  try {
+    // Create a temporary directory
+    tempDir = await createTempDir("local-webapp-");
+
+    // Execute the project creation function with webapp template
+    await createPurescriptDenoProject(tempDir, { template: "webapp" });
+
+    // Validate that the project was created correctly
+    await validateProjectStructure(tempDir, "webapp");
+
+  } finally {
+    // Clean up the temporary directory regardless of test outcome
+    if (tempDir) {
+      await cleanupDir(tempDir);
+    }
+  }
+});
+
+// Test webapp template with build option
+Deno.test("Local execution - creates and builds webapp project in temporary directory", async () => {
+  let tempDir = "";
+
+  try {
+    // Create a temporary directory.
+    tempDir = await createTempDir("local-webapp-build-");
+
+    // Execute the project creation function with webapp template and build option.
+    await createPurescriptDenoProject(tempDir, { template: "webapp", build: true });
+
+    // Validate that the project was created correctly.
+    await validateProjectStructure(tempDir, "webapp");
+
+    // Run the tests in the built project.
+    const cmd = new Deno.Command("npm", {
+      args: [ "run", "test" ],
+      cwd: tempDir,
+    });
+
+    const status = await cmd.spawn().status;
+
+    if (!status.success) {
+      throw new Error("Test in webapp failed");
+    }
+  } finally {
+    // Clean up the temporary directory regardless of test outcome
+    if (tempDir) {
+      await cleanupDir(tempDir);
+    }
+  }
+});
