@@ -1,10 +1,13 @@
 README.md
-cli.ts
 package.json
+serve.ts
 spago.yaml
 src/Main.purs
+src/Main.ts
 test/Test/Main.purs
 purs.tsconfig.json
 deno.jsonc
 test.ts
 .gitignore
+html/index.html
+html/404.html

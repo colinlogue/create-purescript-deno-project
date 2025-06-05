@@ -1,0 +1,9 @@
+node_modules/
+.spago/
+output/
+package-lock.json
+.spec-results
+.psc-ide-port
+src/**/*.js
+test/**/*.js
+db/

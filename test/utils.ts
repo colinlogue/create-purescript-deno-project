@@ -2,7 +2,6 @@
 // Common utility functions for tests
 
 import * as path from "jsr:@std/path@1.0.9";
-import { assertEquals } from "jsr:@std/assert@1.0.0";
 
 // Creates a temporary directory with a unique name
 export async function createTempDir(prefix = "test-"): Promise<string> {
@@ -13,31 +12,37 @@ export async function createTempDir(prefix = "test-"): Promise<string> {
 
 // Function to validate that the project structure was created correctly
 export async function validateProjectStructure(targetDir: string, template: string = "server"): Promise<void> {
-  // Check for key files and directories that should exist for all templates
-  const commonFiles = [
-    "package.json",
-    "spago.yaml",
-    "src/Main.purs",
-    "test/Test/Main.purs",
-    "README.md",
-  ];
+  // Find the manifest file for this template
+  const templateManifestPath = path.join(Deno.cwd(), "templates", template, "template.manifest");
 
-  // Template-specific files
-  const templateSpecificFiles: Record<string, string[]> = {
-    server: ["serve.ts"],
-    cli: ["cli.ts"],
-  };
+  let expectedFiles: string[];
+  try {
+    // Read the manifest file
+    const manifestContent = await Deno.readTextFile(templateManifestPath);
+    // Parse the list of files from the manifest
+    expectedFiles = manifestContent
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+  } catch (error) {
+    if (error instanceof Deno.errors.NotFound) {
+      throw new Error(`Template manifest file not found for template: ${template}`);
+    }
+    throw error;
+  }
 
-  const expectedFiles = [...commonFiles, ...(templateSpecificFiles[template] || [])];
-
+  // Validate that each file from the manifest exists in the target directory
   for (const file of expectedFiles) {
     const fullPath = path.join(targetDir, file);
     try {
       const stat = await Deno.stat(fullPath);
-      assertEquals(stat.isFile, true, `Expected ${file} to be a file`);
+      // Allow both files and directories - some entries might be directories
+      if (!(stat.isFile || stat.isDirectory)) {
+        throw new Error(`Expected ${file} to be a file or directory`);
+      }
     } catch (error) {
       if (error instanceof Deno.errors.NotFound) {
-        throw new Error(`Expected file ${file} was not found in the created project`);
+        throw new Error(`Expected file/directory ${file} was not found in the created project`);
       }
       throw error;
     }

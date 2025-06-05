@@ -6,9 +6,9 @@
     "compile": "deno compile --allow-all --include template --output dist/create-purescript-deno-project create-purescript-deno-project.ts",
     "publish": "deno run --allow-all scripts/publish.ts",
     "zip": "deno run --allow-all scripts/zip-template.ts",
-    "test": "deno test --allow-all test/",
-    "test:local": "deno test --allow-all test/local.test.ts",
-    "test:remote": "deno test --allow-all test/remote.test.ts"
+    "test": "deno task zip && deno test --allow-all test/",
+    "test:local": "deno task zip && deno test --allow-all test/local.test.ts",
+    "test:remote": "deno task zip && deno test --allow-all test/remote.test.ts"
   },
   "exports": "./create-purescript-deno-project.ts",
   "license": "MIT",
