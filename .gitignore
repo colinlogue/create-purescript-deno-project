@@ -4,3 +4,5 @@ dist
 template.zip
 templates/*.zip
 tmp/
+.psc-ide-port
+scratch/

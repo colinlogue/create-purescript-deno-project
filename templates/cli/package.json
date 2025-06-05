@@ -6,7 +6,9 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "build": "tsc; spago build",
+    "build": "npm run build:purs",
+    "build:purs": "spago build",
+    "build:ts": "tsc -p purs.tsconfig.json",
     "start": "deno run cli.ts",
     "test": "deno run --allow-all test.ts"
   }

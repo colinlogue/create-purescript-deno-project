@@ -5,7 +5,7 @@ spago.yaml
 src/Main.purs
 src/Main.ts
 test/Test/Main.purs
-tsconfig.json
+purs.tsconfig.json
 deno.jsonc
 test.ts
 .gitignore
